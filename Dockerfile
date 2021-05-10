@@ -1,4 +1,4 @@
-FROM python:3.7-slim-buster
+FROM python:3.9.5-slim-buster
 
 ENV PYTHONUNBUFFERED 1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
