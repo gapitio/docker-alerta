@@ -1,4 +1,18 @@
-FROM python:3.7-slim-buster
+FROM node:lts-alpine as build-stage
+
+ADD https://github.com/gapitio/alerta-webui/archive/refs/heads/gapit_notifications.tar.gz /tmp/webui.tar.gz
+RUN apk add --no-cache git
+RUN tar zxvf /tmp/webui.tar.gz -C /tmp && \
+    cd /tmp/alerta-webui-gapit_notifications && \
+    npm install && \
+    npm run build --fix && \
+    mv /tmp/alerta-webui-gapit_notifications/dist /web
+
+
+FROM python:3.7-slim-buster as production-stage
+
+COPY --from=build-stage /web /web
+
 
 ENV PYTHONUNBUFFERED 1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
@@ -10,9 +24,9 @@ ARG BUILD_DATE=now
 ARG VCS_REF
 ARG VERSION
 
-ENV SERVER_VERSION=${VERSION}
+ENV SERVER_VERSION="notification_rules"
 ENV CLIENT_VERSION=8.5.0
-ENV WEBUI_VERSION=8.5.0
+ENV WEBUI_VERSION="notification_rules"
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.url="https://alerta.io" \
@@ -68,7 +82,11 @@ RUN pip install --no-cache-dir pip virtualenv && \
     /venv/bin/pip install --no-cache-dir --requirement /app/requirements-docker.txt
 ENV PATH $PATH:/venv/bin
 
-RUN /venv/bin/pip install alerta==${CLIENT_VERSION} alerta-server==${SERVER_VERSION}
+RUN /venv/bin/pip install alerta==${CLIENT_VERSION}
+# ADD https://github.com/gapitio/alerta/releases/download/v${SERVER_VERSION}}/alerta.tar.gz /tmp/backend/alerta.tar.gz
+ADD https://github.com/gapitio/alerta/archive/refs/heads/gapit_notification.tar.gz /tmp/backend/alerta.tar.gz
+RUN tar zxvf /tmp/backend/alerta.tar.gz -C /tmp/backend && \
+    /venv/bin/pip install /tmp/backend/alerta-gapit_notification/.
 COPY install-plugins.sh /app/install-plugins.sh
 COPY plugins.txt /app/plugins.txt
 RUN /app/install-plugins.sh
@@ -76,9 +94,12 @@ RUN /app/install-plugins.sh
 ENV ALERTA_SVR_CONF_FILE /app/alertad.conf
 ENV ALERTA_CONF_FILE /app/alerta.conf
 
-ADD https://github.com/alerta/alerta-webui/releases/download/v${WEBUI_VERSION}/alerta-webui.tar.gz /tmp/webui.tar.gz
-RUN tar zxvf /tmp/webui.tar.gz -C /tmp && \
-    mv /tmp/dist /web
+# # ADD https://github.com/alerta/alerta-webui/releases/download/v${WEBUI_VERSION}/alerta-webui.tar.gz /tmp/webui.tar.gz
+# ADD https://github.com/gapitio/alerta-webui/archive/refs/heads/gapit_notification.tar.gz /tmp/webui.tar.gz
+# RUN tar zxvf /tmp/webui.tar.gz -C /tmp && \
+#     cd /tmp/alerta-webui-gapit_notification && \
+#     npm run build && \
+#     mv /tmp/alerta-webui-gapit_notification/dist /web
 COPY config.json /web/config.json
 
 COPY wsgi.py /app/wsgi.py
