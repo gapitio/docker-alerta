@@ -24,9 +24,9 @@ ARG BUILD_DATE=now
 ARG VCS_REF
 ARG VERSION
 
-ENV SERVER_VERSION="notification_rules"
+ENV SERVER_VERSION=8.5.0
 ENV CLIENT_VERSION=8.5.0
-ENV WEBUI_VERSION="notification_rules"
+ENV WEBUI_VERSION=8.5.0
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.url="https://alerta.io" \
