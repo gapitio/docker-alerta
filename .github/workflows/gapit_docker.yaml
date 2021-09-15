@@ -42,7 +42,6 @@ jobs:
             --build-arg VERSION=$(cat VERSION)
           docker-compose -f docker-compose.test.yml up --exit-code-from tester
   build:
-    needs: test
 
     runs-on: ubuntu-latest
     permissions:
