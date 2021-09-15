@@ -11,7 +11,7 @@ on:
   push:
     branches: [ gapit_notifications ]
     # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    tags: [ 'vg*.*.*' ]
   pull_request:
     branches: [ gapit_notifications ]
 
