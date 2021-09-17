@@ -23,24 +23,6 @@ env:
 
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Docker Lint
-        id: docker-lint
-        run: |
-          docker run --rm -i ghcr.io/hadolint/hadolint hadolint \
-          --ignore DL3008 \
-          --ignore DL3059 \
-          - < Dockerfile
-      - name: Run tests
-        id: smoketest
-        run: |
-          docker-compose -f docker-compose.test.yml build \
-            --build-arg VCS_REF=${{ github.sha }} \
-            --build-arg VERSION=$(cat VERSION)
-          docker-compose -f docker-compose.test.yml up --exit-code-from tester
   build:
 
     runs-on: ubuntu-latest
