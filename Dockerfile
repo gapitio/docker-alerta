@@ -1,4 +1,4 @@
-FROM node:lts-alpine as build-stage
+FROM node:14-alpine as build-stage
 
 ADD https://github.com/gapitio/alerta-webui/archive/refs/heads/gapit_notifications.tar.gz /tmp/webui.tar.gz
 RUN apk add --no-cache git
