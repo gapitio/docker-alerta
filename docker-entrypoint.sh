@@ -1,7 +1,8 @@
 #!/bin/bash
-set -ex
 
-env | sort
+if [ $INIT_LOG = true ]; then set -ex; else set -e; fi
+
+if [ $INIT_LOG = true ]; then env | sort; fi
 
 ADMIN_USER=${ADMIN_USERS%%,*}
 ADMIN_PASSWORD=${ADMIN_PASSWORD:-alerta}
@@ -9,7 +10,7 @@ MAXAGE=${ADMIN_KEY_MAXAGE:-315360000}  # default=10 years
 
 # Generate minimal server config, if not supplied
 if [ ! -f "${ALERTA_SVR_CONF_FILE}" ]; then
-  echo "# Create server configuration file."
+  if [ $INIT_LOG = true ]; then echo "# Create server configuration file."; fi
   cat >"${ALERTA_SVR_CONF_FILE}" << EOF
 SECRET_KEY = '$(< /dev/urandom tr -dc A-Za-z0-9_\!\@\#\$\%\^\&\*\(\)-+= | head -c 32)'
 EOF
@@ -17,21 +18,21 @@ fi
 
 # Init admin users and API keys
 if [ -n "${ADMIN_USERS}" ]; then
-  echo "# Create admin users."
-  alertad user --all --password "${ADMIN_PASSWORD}" || true
-  echo "# Create admin API keys."
-  alertad key --all
+  if [ $INIT_LOG = true ]; then echo "# Create admin users."; fi
+  if [ $INIT_LOG = true ]; then alertad user --all --password "${ADMIN_PASSWORD}" || true; else alertad user --all --password "${ADMIN_PASSWORD}" > /dev/null || true; fi
+  if [ $INIT_LOG = true ]; then echo "# Create admin API keys."; fi
+  if [ $INIT_LOG = true ]; then alertad key --all else alertad key --all > /dev/null; fi
 
   # Create user-defined API key, if required
   if [ -n "${ADMIN_KEY}" ]; then
-    echo "# Create user-defined admin API key."
+    if [ $INIT_LOG = true ]; then echo "# Create user-defined admin API key."; fi
     alertad key --username "${ADMIN_USER}" --key "${ADMIN_KEY}" --duration "${MAXAGE}"
   fi
 fi
 
 # Generate minimal client config, if not supplied
 if [ ! -f "${ALERTA_CONF_FILE}" ]; then
-  echo "# Create client configuration file."
+  if [ $INIT_LOG = true ]; then echo "# Create client configuration file.";fi
   cat >${ALERTA_CONF_FILE} << EOF
 [DEFAULT]
 endpoint = http://localhost:8080/api
@@ -39,7 +40,7 @@ EOF
 
   # Add API key to client config, if required
   if [ "${AUTH_REQUIRED,,}" == "true" ]; then
-    echo "# Auth enabled; add admin API key to client configuration."
+    if [ $INIT_LOG = true ]; then echo "# Auth enabled; add admin API key to client configuration."; fi
     API_KEY=$(alertad key \
     --username "${ADMIN_USER}" \
     --scope "read" \
@@ -53,21 +54,22 @@ EOF
   fi
 fi
 
-echo
-echo '# Checking versions.'
-echo Alerta Server ${SERVER_VERSION}
-echo Alerta Client ${CLIENT_VERSION}
-echo Alerta WebUI  ${WEBUI_VERSION}
+if [ $INIT_LOG = true ]; then 
+  echo
+  echo '# Checking versions.'
+  echo Alerta Server ${SERVER_VERSION}
+  echo Alerta Client ${CLIENT_VERSION}
+  echo Alerta WebUI  ${WEBUI_VERSION}
 
-nginx -v
-echo uwsgi $(uwsgi --version)
-mongo --version | grep MongoDB
-psql --version
-python3 --version
-/venv/bin/pip list
+  nginx -v
+  echo uwsgi $(uwsgi --version)
+  mongo --version | grep MongoDB
+  psql --version
+  python3 --version
+  /venv/bin/pip list
 
-echo
-echo 'Alerta init process complete; ready for start up.'
-echo
-
+  echo
+  echo 'Alerta init process complete; ready for start up.'
+  echo
+fi
 exec "$@"

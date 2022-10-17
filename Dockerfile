@@ -124,6 +124,8 @@ ENV SUPERVISORD_LOG_LEVEL DEBUG
 COPY docker-entrypoint.sh /usr/local/bin/
 COPY supervisord.conf /app/supervisord.conf
 
+ENV INIT_LOG false
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 8080
