@@ -134,6 +134,8 @@ USER 1001
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
+ENV INIT_LOG false
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 8080 1717
