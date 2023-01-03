@@ -49,6 +49,9 @@ RUN apt-get update && \
     postgresql-client \
     python3-dev \
     supervisor \
+    libpcre3 \
+    libpcre3-dev \
+    ca-certificates \
     xmlsec1 && \
     apt-get -y clean && \
     apt-get -y autoremove && \
@@ -119,7 +122,7 @@ ENV HEARTBEAT_SEVERITY major
 ENV HK_EXPIRED_DELETE_HRS 2
 ENV HK_INFO_DELETE_HRS 12
 
-ENV SUPERVISORD_LOG_LEVEL DEBUG
+ENV SUPERVISORD_LOG_LEVEL WARN
 
 COPY docker-entrypoint.sh /usr/local/bin/
 COPY supervisord.conf /app/supervisord.conf
