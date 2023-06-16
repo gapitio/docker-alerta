@@ -1,4 +1,4 @@
-FROM node:14-alpine as build-stage
+FROM node:16-alpine as build-stage
 
 ADD https://github.com/gapitio/alerta-webui/archive/refs/heads/gapit_notifications.tar.gz /tmp/webui.tar.gz
 RUN apk add --no-cache git
@@ -9,7 +9,7 @@ RUN tar zxvf /tmp/webui.tar.gz -C /tmp && \
     mv /tmp/alerta-webui-gapit_notifications/dist /web
 
 
-FROM python:3.7-slim-buster as production-stage
+FROM python:3.9-slim-buster as production-stage
 
 COPY --from=build-stage /web /web
 
