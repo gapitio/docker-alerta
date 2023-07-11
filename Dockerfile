@@ -116,7 +116,6 @@ ENV ALERTA_CONF_FILE /app/alerta.conf
 #     cd /tmp/alerta-webui-gapit_notification && \
 #     npm run build && \
 #     mv /tmp/alerta-webui-gapit_notification/dist /web
-COPY config.json /web/config.json
 
 ENV ALERTA_SVR_CONF_FILE /app/alertad.conf
 ENV ALERTA_CONF_FILE /app/alerta.conf
