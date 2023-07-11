@@ -18,6 +18,10 @@ threads = {{ env.UWSGI_THREADS }}
 enable-threads = True
 {%- endif %}
 
+{%- if 'notification_rule' in env.PLUGINS %}
+enable-threads = True
+{%- endif %}
+
 socket = 127.0.0.1:29000
 buffer-size = {{ env.UWSGI_BUFFER_SIZE }}
 chmod-socket = 664
