@@ -1,4 +1,6 @@
 [uwsgi]
+logger = info file:/tmp/uswgi.log
+log-route = info ^\D
 chdir = /app
 module = wsgi
 manage-script-name = true
