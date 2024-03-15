@@ -29,6 +29,12 @@ autostart=true
 autorestart=true
 redirect_stderr=true
 
+[program:reactivateNR]
+command= bash -c "sleep 10 && alerta reactivate_notitification_rules"
+autostart=true
+autorestart=true
+redirect_stderr=true
+
 {% if env.HEARTBEAT_SEVERITY -%}
 [program:heartbeats]
 command=sh -c "sleep 60 && alerta heartbeats --alert --severity {{ env.HEARTBEAT_SEVERITY }}"
