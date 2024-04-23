@@ -64,3 +64,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+            BUILD_NUMBER=$BUILD_NUMBER
+            VERSION=${{ github.ref_name }}
+            VCS_REF=${{ github.sha }}
