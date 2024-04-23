@@ -29,12 +29,12 @@ ENV HK_EXPIRED_DELETE_HRS=2
 ENV HK_INFO_DELETE_HRS=12
 
 LABEL org.opencontainers.image.description="Alerta API (prod)" \
-      org.opencontainers.image.created=$BUILD_DATE \
-      org.opencontainers.image.url="https://github.com/alerta/alerta/pkgs/container/alerta-api" \
-      org.opencontainers.image.source="https://github.com/alerta/alerta" \
-      org.opencontainers.image.version=$RELEASE \
-      org.opencontainers.image.revision=$VERSION \
-      org.opencontainers.image.licenses=Apache-2.0
+    org.opencontainers.image.created=$BUILD_DATE \
+    org.opencontainers.image.url="https://github.com/alerta/alerta/pkgs/container/alerta-api" \
+    org.opencontainers.image.source="https://github.com/alerta/alerta" \
+    org.opencontainers.image.version=$RELEASE \
+    org.opencontainers.image.revision=$VERSION \
+    org.opencontainers.image.licenses=Apache-2.0
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -91,9 +91,9 @@ ENV PATH $PATH:/venv/bin
 ADD https://github.com/gapitio/python-alerta-client/archive/refs/heads/gapit.tar.gz /tmp/client/client.tar.gz
 RUN tar zxvf /tmp/client/client.tar.gz -C /tmp/client/ && \
     /venv/bin/pip install /tmp/client/python-alerta-client-gapit/.
-ADD https://github.com/gapitio/alerta/releases/download//v${SERVER_VERSION}/alerta-api.tar.gz /tmp/backend/alerta.tar.gz
+ADD https://github.com/gapitio/alerta/releases/download/v${SERVER_VERSION}/alerta-api.tar.gz /tmp/backend/alerta.tar.gz
 RUN tar zxvf /tmp/backend/alerta.tar.gz -C /tmp/backend && \
-    find tmp/backend/dist -name "*-py2.py3-none-any.whl" | xargs -I{} /venv/bin/pip install {}
+    find /tmp/backend/dist -name "*-py2.py3-none-any.whl" -print0 | xargs -0 -I{} /venv/bin/pip install {}
 COPY install-plugins.sh /app/install-plugins.sh
 COPY plugins.txt /app/plugins.txt
 RUN /app/install-plugins.sh
