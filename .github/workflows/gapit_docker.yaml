@@ -42,7 +42,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=pr
-            type=match,pattern=vg(.*),group=1
+            type=match,pattern=v(.*),group=1
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'gapit_notifications') }}
 
       # Login against a Docker registry except on PR
