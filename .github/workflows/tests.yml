@@ -25,46 +25,16 @@ jobs:
         id: smoketest
         run: >-
           BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          RELEASE=$(cat VERSION)
+          RELEASE=${{ github.ref_name }}
           VERSION=${{ github.sha }}
           docker-compose
-          -f tests/docker-compose.test.mongodb.yml
+          -f tests/docker-compose.test.postgres.yml
           up
           --build
           --quiet-pull
           --exit-code-from tester
       - uses: act10ns/slack@v2
         with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-        if: always()
-
-  test-mongodb:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Docker Lint
-        id: docker-lint
-        run: |
-          docker run --rm -i ghcr.io/hadolint/hadolint hadolint \
-          --ignore DL3008 \
-          --ignore DL3059 \
-          - < Dockerfile
-      - name: Run tests
-        id: smoketest
-        run: >-
-          BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          RELEASE=$(cat VERSION)
-          VERSION=${{ github.sha }}
-          docker-compose
-          -f tests/docker-compose.test.mongodb.yml
-          up
-          --build
-          --quiet-pull
-          --exit-code-from tester
-      - uses: act10ns/slack@v2
-        with: 
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}
         if: always()
