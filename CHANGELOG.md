@@ -1,25 +1,32 @@
-## vg1.4.3
+## v1.5.0
+
+### Feat
+
+- add notification history
+
+
+## v1.4.3
 
 ### Fix
 
 - check status without ignoring active status of notification rules
 
 
-## vg1.4.2
+## v1.4.2
 
 ### Feat
 
 - add mylink notification channel for new link mobility api
 
 
-## vg1.4.1
+## v1.4.1
 
 ### Feat
 
 - add searchable fields for notification rules
 
 
-## vg1.4.0
+## v1.4.0
 
 ### Feat
 
