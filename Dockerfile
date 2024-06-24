@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster as production-stage
+FROM python:3.12-slim
 WORKDIR /
 
 
@@ -59,21 +59,11 @@ RUN curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add - && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
-# hadolint ignore=DL3008
-RUN curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add - && \
-    echo "deb https://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main" | tee /etc/apt/sources.list.d/mongodb-org-4.2.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
-    mongodb-org-shell && \
-    apt-get -y clean && \
-    apt-get -y autoremove && \
-    rm -rf /var/lib/apt/lists/*
-
 COPY requirements*.txt /app/
 
 # hadolint ignore=DL3013
 RUN pip install --no-cache-dir pip virtualenv jinja2 && \
-    python3 -m venv /venv && \
+    python3.12 -m venv /venv && \
     /venv/bin/pip install --no-cache-dir --upgrade setuptools && \
     /venv/bin/pip install --no-cache-dir --requirement /app/requirements.txt && \
     /venv/bin/pip install --no-cache-dir --requirement /app/requirements-docker.txt
