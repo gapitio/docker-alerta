@@ -35,6 +35,12 @@ autostart=true
 autorestart=true
 redirect_stderr=true
 
+[program:delayNR]
+command= bash -c "sleep 10 && alerta notfication_delay"
+autostart=true
+autorestart=true
+redirect_stderr=true
+
 {% if env.HEARTBEAT_SEVERITY -%}
 [program:heartbeats]
 command=sh -c "sleep 60 && alerta heartbeats --alert --severity {{ env.HEARTBEAT_SEVERITY }}"
