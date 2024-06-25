@@ -29,7 +29,7 @@ if [ -n "${ADMIN_USERS}" ]; then
   if [ $INIT_LOG = true ]; then echo "# Create admin users."; fi
   if [ $INIT_LOG = true ]; then alertad user --all --password "${ADMIN_PASSWORD}" || true; else alertad user --all --password "${ADMIN_PASSWORD}" > /dev/null || true; fi
   if [ $INIT_LOG = true ]; then echo "# Create admin API keys."; fi
-  if [ $INIT_LOG = true ]; then alertad key --all else alertad key --all > /dev/null; fi
+  if [ $INIT_LOG = true ]; then alertad key --all; else alertad key --all > /dev/null; fi
 
   # Create user-defined API key, if required
   if [ -n "${ADMIN_KEY}" ]; then
@@ -43,7 +43,7 @@ if [ ! -f "${ALERTA_CONF_FILE}" ]; then
   # Add API key to client config, if required
   if [ "${AUTH_REQUIRED,,}" == "true" ]; then
     if [ $INIT_LOG = true ]; then echo "# Auth enabled; add admin API key to client configuration."; fi
-    HOUSEKEEPING_SCOPES="--scope read --scope write:alerts --scope admin:management"
+    HOUSEKEEPING_SCOPES="--scope read --scope write:alerts --scope admin:management --scope write:notification_rules"
     if grep -qE 'CUSTOMER_VIEWS.*=.*True' ${ALERTA_SVR_CONF_FILE};then
       HOUSEKEEPING_SCOPES="--scope admin:alerts ${HOUSEKEEPING_SCOPES}"
     fi
@@ -91,7 +91,6 @@ if [ $INIT_LOG = true ]; then
 
   nginx -v
   echo uwsgi $(uwsgi --version)
-  mongo --version | grep MongoDB
   psql --version
   python3 --version
   /venv/bin/pip list
