@@ -1,3 +1,15 @@
+## v1.6.1
+
+### Feat
+
+- enable edit of emails when using LDAP
+- add info about which version is running
+
+### Fix
+
+- add "unack" to the open status check to enable the ACK action when the alert status is "unack"
+- remove unused notification channel types link_mobility and jira
+
 ## v1.6.0
 
 ### Feat
