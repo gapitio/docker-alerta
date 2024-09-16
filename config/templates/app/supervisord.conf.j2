@@ -15,14 +15,6 @@ command=nginx -c /app/nginx.conf
 redirect_stderr=true
 stopsignal=QUIT
 
-{% if env.HK_EXPIRED_DELETE_HRS and env.HK_INFO_DELETE_HRS -%}
-[program:housekeeping]
-command=bash -c "sleep 60 && alerta housekeeping --expired {{ env.HK_EXPIRED_DELETE_HRS  }} --info {{ env.HK_INFO_DELETE_HRS }}"
-autostart=true
-autorestart=true
-redirect_stderr=true
-{%- endif %}
-
 [program:escalation]
 command= bash -c "sleep 10 && alerta escalate"
 autostart=true
