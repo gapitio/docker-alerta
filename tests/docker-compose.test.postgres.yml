@@ -23,12 +23,7 @@ services:
       - ADMIN_KEY=demo-key
       - ADMIN_KEY_MAXAGE=31536000 # 1 year in seconds
       - PLUGINS=reject,blackout,normalise,enhance
-      - HK_EXPIRED_DELETE_HRS=39
-      - HK_INFO_DELETE_HRS=17
       - HEARTBEAT_SEVERITY=warning
-      # Disable Housekeeping by setting one or both of HK env vars to a empty string
-      # - HK_EXPIRED_DELETE_HRS=
-      # - HK_INFO_DELETE_HRS=
       # Disable hearbeat alerts by setting below env var to empty string
       # - HEARTBEAT_SEVERITY=
 
