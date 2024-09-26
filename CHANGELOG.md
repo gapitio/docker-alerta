@@ -1,3 +1,17 @@
+## v2.0.0
+
+### Feat
+
+- add text field to each trigger by merging advanced_notification, status and severity into triggers with text field
+- add export of the top n offenders, flapping and standing reports
+- add bulk activation/deactivation of notification rules
+
+## v1.6.2
+
+### Fix
+
+- remove housekeeping script from docker alerta to remove expired history when the housekeeping is not deleting expired alerts
+
 ## v1.6.1
 
 ### Feat
