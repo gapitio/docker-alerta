@@ -1,3 +1,26 @@
+## v2.0.3
+
+### Fix
+
+- remove + 'd' from mylink bearer
+
+## v2.0.2
+
+### Feat
+
+- add phone numbers and emails to notification groups
+
+### Fix
+
+- set default status(closed) when alerts are received for the first time with default normal severity(normal) when using ALERTA_ISA_16_2 alarm model
+- add error handling of searhces for alerts. Instead of throwing error when a search fail, it is logged as info.
+
+## v2.0.1
+
+### Fix
+
+- update api token for myLink channels 10 minutes before the token timeout
+
 ## v2.0.0
 
 ### Feat
