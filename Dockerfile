@@ -68,9 +68,9 @@ RUN pip install --no-cache-dir pip virtualenv jinja2 && \
     /venv/bin/pip install --no-cache-dir --requirement /app/requirements-docker.txt
 ENV PATH $PATH:/venv/bin
 
-ADD https://github.com/gapitio/python-alerta-client/archive/refs/heads/gapit.tar.gz /tmp/client/client.tar.gz
+ADD https://github.com/gapitio/python-alerta-client/archive/refs/heads/performance.tar.gz /tmp/client/client.tar.gz
 RUN tar zxvf /tmp/client/client.tar.gz -C /tmp/client/ && \
-    /venv/bin/pip install /tmp/client/python-alerta-client-gapit/.
+    /venv/bin/pip install /tmp/client/python-alerta-client-performance/.
 ADD https://github.com/gapitio/alerta/releases/download/${SERVER_VERSION}/alerta-api.tar.gz /tmp/backend/alerta.tar.gz
 RUN tar zxvf /tmp/backend/alerta.tar.gz -C /tmp/backend && \
     find /tmp/backend/dist -name "*-py2.py3-none-any.whl" -print0 | xargs -0 -I{} /venv/bin/pip install {}
