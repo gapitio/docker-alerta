@@ -1,3 +1,12 @@
+## v2.2.0
+
+### Feat
+- add filter search for each column in alert table
+
+### Fix
+- fix environment tabs for alert history table
+
+
 ## v2.1.0
 
 ### Feat
