@@ -1,24 +1,25 @@
 ## v2.1.0
 
-### Fix
-
-- remove twilio and sendgrid libraries. Add simple requests for sending mail and sms
+### Feat
 - add and/or logic for tags in notification rules
-- fix length of users, phone numbers/mails in notification groups to always use all listed mails/phone numbers without requiring the same amount of phone numbers and mails
 - add filter for sent status in notification history
 - add and/or logic for tags in escalation rules
 - add removal of notes when alert is closed
-- add more checks for trigger text to select the correct trigger text when there are more advanced triggers
-- select correct users/notification rules in test of notification channel
 - add notification send for sending custom mail, sms
-- add notification rule history to track changes of notification rules
-- remove option for repeat type in on-call
 - add backend search for notification history
-- fix authentication for export of reports
 - add information dialogs and tooltips for notification and escalation
 - add dialog for notification rules activate
-- add information about which notification rules are activated/deactivated in buld deactivate/activate notification rules
 - add confirm for closing dialogs when the data in the dialog is changed
+- add information about which notification rules are activated/deactivated in buld deactivate/activate notification rules
+- remove twilio and sendgrid libraries. Add simple requests for sending mail and sms
+- add notification rule history to track changes of notification rules
+
+### Fix
+- fix length of users, phone numbers/mails in notification groups to always use all listed mails/phone numbers without requiring the same amount of phone numbers and mails
+- add more checks for trigger text to select the correct trigger text when there are more advanced triggers
+- select correct users/notification rules in test of notification channel
+- remove option for repeat type in on-call
+- fix authentication for export of reports
 - change time to utc when creating on calls
 - add header and footer for notification/escalation dialogs
 
