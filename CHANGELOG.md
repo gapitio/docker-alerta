@@ -1,3 +1,8 @@
+## v2.2.1
+
+### Fix
+- add update of bearer(myLink token) when testing notification channels 
+
 ## v2.2.0
 
 ### Feat
@@ -5,7 +10,6 @@
 
 ### Fix
 - fix environment tabs for alert history table
-
 
 ## v2.1.0
 
