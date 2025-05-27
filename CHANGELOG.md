@@ -1,3 +1,8 @@
+## v2.2.3
+
+### Fix
+- set status of alert with null status to closed at startup
+
 ## v2.2.2
 
 ### Feat
