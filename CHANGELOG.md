@@ -1,3 +1,12 @@
+## v2.2.2
+
+### Feat
+- the heartbeat script deletes heartbeat alerts that do not have a corresponding heartbeat
+
+### Fix
+- the heartbeat script enforces the "Heartbeats" environment.
+    Heartbeats with an environment attribute appear in the alerts list with the environment: Heartbeats (attributes.environment)
+
 ## v2.2.1
 
 ### Fix
