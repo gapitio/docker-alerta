@@ -43,7 +43,7 @@ if [ ! -f "${ALERTA_CONF_FILE}" ]; then
   # Add API key to client config, if required
   if [ "${AUTH_REQUIRED,,}" == "true" ]; then
     if [ $INIT_LOG = true ]; then echo "# Auth enabled; add admin API key to client configuration."; fi
-    HOUSEKEEPING_SCOPES="--scope read --scope write:alerts --scope admin:management --scope write:notification_rules"
+    HOUSEKEEPING_SCOPES="--scope read --scope write:alerts --scope admin:management --scope write:notification_rules --scope delete:alerts"
     if grep -qE 'CUSTOMER_VIEWS.*=.*True' ${ALERTA_SVR_CONF_FILE};then
       HOUSEKEEPING_SCOPES="--scope admin:alerts ${HOUSEKEEPING_SCOPES}"
     fi
