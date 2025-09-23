@@ -1,8 +1,8 @@
-FROM python:3.12-slim
+FROM python:3.12-slim-bookworm
 WORKDIR /
 
 
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
 
@@ -66,7 +66,7 @@ RUN pip install --no-cache-dir pip virtualenv jinja2 && \
     /venv/bin/pip install --no-cache-dir --upgrade setuptools && \
     /venv/bin/pip install --no-cache-dir --requirement /app/requirements.txt && \
     /venv/bin/pip install --no-cache-dir --requirement /app/requirements-docker.txt
-ENV PATH $PATH:/venv/bin
+ENV PATH=$PATH:/venv/bin
 
 ADD https://github.com/gapitio/python-alerta-client/archive/refs/heads/gapit.tar.gz /tmp/client/client.tar.gz
 RUN tar zxvf /tmp/client/client.tar.gz -C /tmp/client/ && \
@@ -78,16 +78,16 @@ COPY install-plugins.sh /app/install-plugins.sh
 COPY plugins.txt /app/plugins.txt
 RUN /app/install-plugins.sh
 
-ENV ALERTA_SVR_CONF_FILE /app/alertad.conf
-ENV ALERTA_CONF_FILE /app/alerta.conf
+ENV ALERTA_SVR_CONF_FILE=/app/alertad.conf
+ENV ALERTA_CONF_FILE=/app/alerta.conf
 
 ADD https://github.com/gapitio/alerta-webui/releases/download/${WEBUI_VERSION}/alerta-webui.tar.gz /tmp/webui.tar.gz
 RUN tar zxvf /tmp/webui.tar.gz -C /tmp && \
     mv /tmp/dist /web
 
-ENV ALERTA_SVR_CONF_FILE /app/alertad.conf
-ENV ALERTA_CONF_FILE /app/alerta.conf
-ENV ALERTA_WEB_CONF_FILE /web/config.json
+ENV ALERTA_SVR_CONF_FILE=/app/alertad.conf
+ENV ALERTA_CONF_FILE=/app/alerta.conf
+ENV ALERTA_WEB_CONF_FILE=/web/config.json
 
 COPY config/templates/app/ /app
 COPY config/templates/web/ /web
@@ -103,7 +103,7 @@ USER 1001
 
 COPY docker-entrypoint.sh /usr/local/bin/
 
-ENV INIT_LOG false
+ENV INIT_LOG=false
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
