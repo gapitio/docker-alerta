@@ -1,3 +1,10 @@
+## v3.0.0
+### Feat
+- new UI for the frontend
+- update vuetify version
+- update vue version
+- add filter to more pages
+
 ## v2.3.0
 ### Feat
 - add a button that opens a table dialog for showing which alerts can trigger a notification in the notification add dialog
