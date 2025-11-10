@@ -1,3 +1,16 @@
+## v3.1.0
+### Feat
+- add text areas instead of text for messages to support multi-line messages
+- add SendGrid support for multi-line messages. Automatically changes newlines (\n) with breaklines (\<br>) in backend
+- change users IDs to users' emails in notification groups, notification rules, and oncalls.
+- add backend view for users' emails.
+- add scope hierarchy to scopes. Split scopes on ".", to make "read:notification" have access to all "read:notification.*"
+
+### Fix
+- add correct perms for buttons and pages in frontend
+- remove unnecessary call to get users in the notification send page. Remove admin:users scope from the notification send page
+- add a new object instead of a reference to another object when adding a new line in edit groups(triggers/tags)
+
 ## v3.0.0
 ### Feat
 - new UI for the frontend
