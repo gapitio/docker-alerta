@@ -1,3 +1,15 @@
+## v2.3.0
+### Feat
+- add a button that opens a table dialog for showing which alerts can trigger a notification in the notification add dialog
+- change tags to be always updated when sent in
+- add customTags to implement "saving" tags
+- show all affected notification rules when deleting a notification group
+- add support for external heartbeat container/service
+
+### Fix
+- show all notification group IDs in the notification rule table and notification add/edit dialog
+- remove the notification group ID from all notification rules when deleting a notification group
+
 ## v2.2.3
 
 ### Fix
