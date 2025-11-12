@@ -1,3 +1,7 @@
+## v3.1.1
+### Fix
+- add color theme for alert colors from "default" config. Change warning to yellow, add green color for ack and add blue color for informational
+
 ## v3.1.0
 ### Feat
 - add text areas instead of text for messages to support multi-line messages
