@@ -1,3 +1,7 @@
+## v3.1.2
+### Fix
+- get user email from user_email column instead of the ID column of the notification send table. user_email is a reference to the users table and will always be correct.
+
 ## v3.1.1
 ### Fix
 - add color theme for alert colors from "default" config. Change warning to yellow, add green color for ack and add blue color for informational
