@@ -1,3 +1,11 @@
+## v3.1.3
+### Fix
+- fix height of alert detail page. Action buttons do not disappear.
+- fix table height for notification history
+- fix the environment tab to show the current environment from the filter
+- add a use on-call switch for notification rule
+- update emails of notification rules, groups, and on-calls when changing a user's email
+
 ## v3.1.2
 ### Fix
 - get user email from user_email column instead of the ID column of the notification send table. user_email is a reference to the users table and will always be correct.
