@@ -1,3 +1,10 @@
+## v3.1.4
+### Feat
+- add note icons next to status
+
+### Fix
+- select distinct notification groups
+
 ## v3.1.3
 ### Fix
 - fix height of alert detail page. Action buttons do not disappear.
