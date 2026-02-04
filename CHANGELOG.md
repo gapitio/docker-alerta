@@ -1,3 +1,29 @@
+## v3.2.0
+### Feat
+- add config to hide pages in navigation drawer
+- add export of alert config like notification rules, escalation rules, etc.
+- add URL hash for filters
+- add dialog for exporting history and alerts
+- add watch switch for only showing watched alerts in alert table
+- add partial search for fields in history and alerts filter
+- make navigation drawer/sidebar collapseable
+- add bulk post, delete and action for alerts
+
+### Fix
+- add correct sort by for all tables
+- remove attributes and history from alert-export
+- remove double fetch of notification rules when updating pagination
+- remove notification sends without receivers
+- add correct height for notification history table
+- remove loading bar from notification rule table when fetching notification rules
+- change clickable element from column to text in alert details
+- add new favicon
+- add correct padding and table height for all tables
+- make environments filter work for history table
+- add alert id for history table. Used for selecting the correct detail page
+- fix history filter fields
+
+
 ## v3.1.4
 ### Feat
 - add note icons next to status
