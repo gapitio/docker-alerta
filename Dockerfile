@@ -12,7 +12,7 @@ ARG VERSION
 
 ENV GAPIT_VERSION=${RELEASE}
 ENV SERVER_VERSION=${RELEASE}
-ENV CLIENT_VERSION=8.5.0
+ENV CLIENT_VERSION=3.2.0
 ENV WEBUI_VERSION=${RELEASE}
 
 ENV NGINX_WORKER_PROCESSES=1
@@ -67,7 +67,7 @@ RUN pip install --no-cache-dir pip virtualenv jinja2 && \
     /venv/bin/pip install --no-cache-dir --requirement /app/requirements.txt && \
     /venv/bin/pip install --no-cache-dir --requirement /app/requirements-docker.txt
 ENV PATH=$PATH:/venv/bin
-ADD https://github.com/gapitio/python-alerta-client/releases/download/${SERVER_VERSION}/alerta-client.tar.gz /tmp/client/client.tar.gz
+ADD https://github.com/gapitio/python-alerta-client/releases/download/v${CLIENT_VERSION}/alerta-client.tar.gz /tmp/client/client.tar.gz
 RUN tar zxvf /tmp/client/client.tar.gz -C /tmp/client/ && \
     find /tmp/client/dist -name "*-py2.py3-none-any.whl" -print0 | xargs -0 -I{} /venv/bin/pip install {}
 ADD https://github.com/gapitio/alerta/releases/download/${SERVER_VERSION}/alerta-api.tar.gz /tmp/backend/alerta.tar.gz
