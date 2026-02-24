@@ -1,3 +1,7 @@
+## v3.2.1
+### Fix
+- change status from wildcard to exact match in alert and history filter
+
 ## v3.2.0
 ### Feat
 - add config to hide pages in navigation drawer
