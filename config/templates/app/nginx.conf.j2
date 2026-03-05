@@ -58,7 +58,8 @@ http {
 
         root /web;
         index index.html;
-        location / {
+        
+        location {{ env.FRONTEND_BASE_URL }} {
             try_files $uri $uri/ /index.html;
         }
     }
