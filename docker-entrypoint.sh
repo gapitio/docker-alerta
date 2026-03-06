@@ -82,7 +82,7 @@ if [ ! -f "${ALERTA_WEB_CONF_FILE}" ]; then
   python3 -c "${JINJA2}" < ${ALERTA_WEB_CONF_FILE}.j2 >${ALERTA_WEB_CONF_FILE}
 fi
 
-if [ ! -f "/web${FRONTEND_BASE_URL}" ]; then
+if [ ! -d "/web${FRONTEND_BASE_URL}" ]; then
   mkdir /web${FRONTEND_BASE_URL}
   mv /web/* /web${FRONTEND_BASE_URL} || :
 fi
