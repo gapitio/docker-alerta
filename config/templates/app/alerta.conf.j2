@@ -1,7 +1,7 @@
 [DEFAULT]
 sslverify = no
 output = presto
-endpoint = http://localhost:8080/api
+endpoint = http://localhost:8080{{ env.FRONTEND_BASE_URL }}api
 timezone = Europe/London
 {%- if env.API_KEY %}
 key = {{ env.API_KEY }}

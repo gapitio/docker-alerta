@@ -46,7 +46,7 @@ http {
 
         access_log /dev/stdout main;
 
-        location /api {
+        location {{ env.FRONTEND_BASE_URL }}api {
             include /etc/nginx/uwsgi_params;
             uwsgi_pass backend;
 
