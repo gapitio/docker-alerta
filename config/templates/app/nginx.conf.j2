@@ -60,7 +60,7 @@ http {
         index index.html;
         
         location {{ env.FRONTEND_BASE_URL }} {
-            try_files $uri $uri/ /index.html;
+            try_files $uri $uri/ {{ env.FRONTEND_BASE_URL }}index.html;
         }
     }
 }
