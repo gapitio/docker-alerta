@@ -4,7 +4,7 @@ JINJA2="import os, sys, jinja2; sys.stdout.write(jinja2.Template(sys.stdin.read(
 
 ALERTA_CONF_FILE=${ALERTA_CONF_FILE:-/app/alerta.conf}
 ALERTA_SVR_CONF_FILE=${ALERTA_SVR_CONF_FILE:-/app/alertad.conf}
-ALERTA_WEB_CONF_FILE=${ALERTA_WEB_CONF_FILE:-/web/config.json}
+ALERTA_WEB_CONF_FILE=/web${FRONTEND_BASE_URL}config.json
 NGINX_CONF_FILE=/app/nginx.conf
 UWSGI_CONF_FILE=/app/uwsgi.ini
 SUPERVISORD_CONF_FILE=/app/supervisord.conf
@@ -74,6 +74,11 @@ nginx -t -c ${NGINX_CONF_FILE}
 if [ ! -f "${UWSGI_CONF_FILE}" ]; then
   if [ $INIT_LOG = true ]; then echo "# Create uWSGI configuration file."; fi
   python3 -c "${JINJA2}" < ${UWSGI_CONF_FILE}.j2 >${UWSGI_CONF_FILE}
+fi
+
+if [ ! -d "/web${FRONTEND_BASE_URL}" ]; then
+  mkdir /web${FRONTEND_BASE_URL}
+  mv /web/* /web${FRONTEND_BASE_URL} || :
 fi
 
 # Generate web config, if not supplied.

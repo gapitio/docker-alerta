@@ -1,3 +1,7 @@
+## v3.2.2
+### Feat
+- add subpath/base url for frontend
+
 ## v3.2.1
 ### Fix
 - change status from wildcard to exact match in alert and history filter

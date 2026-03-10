@@ -46,7 +46,7 @@ http {
 
         access_log /dev/stdout main;
 
-        location /api {
+        location {{ env.FRONTEND_BASE_URL }}api {
             include /etc/nginx/uwsgi_params;
             uwsgi_pass backend;
 
@@ -58,8 +58,9 @@ http {
 
         root /web;
         index index.html;
-        location / {
-            try_files $uri $uri/ /index.html;
+        
+        location {{ env.FRONTEND_BASE_URL }} {
+            try_files $uri $uri/ {{ env.FRONTEND_BASE_URL }}index.html;
         }
     }
 }
