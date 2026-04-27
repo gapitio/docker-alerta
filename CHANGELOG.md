@@ -1,6 +1,11 @@
 ## v3.2.2
 ### Feat
 - add subpath/base url for frontend
+- make edit-date fields clearable
+- change on-calls to always check repeat-lists, time of day, and the date.
+
+### Fix
+- change the name from "End Time" to "Months" for the repeat months field in the on-call add dialog
 
 ## v3.2.1
 ### Fix
