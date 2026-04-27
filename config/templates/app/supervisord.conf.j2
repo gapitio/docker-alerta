@@ -40,3 +40,9 @@ autostart=true
 autorestart=true
 redirect_stderr=true
 {%- endif %}
+
+[program:housekeeping]
+command= bash -c "sleep 10 && alerta housekeeping"
+autostart=true
+autorestart=true
+redirect_stderr=true
