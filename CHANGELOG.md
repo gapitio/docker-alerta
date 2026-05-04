@@ -1,3 +1,30 @@
+## v4.0.0
+### Feat
+- remove unused fields for alerts:
+    - type
+    - group
+    - repeat
+    - trendIndication
+- remove the correlate of events
+- add editable filter tabs for alerts and history views/tables
+- add support for adding custom OIDC scopes
+- change the alert timeout field to only track the timeout for shelved/acked
+- add popups with timeout and text for shelve and ack actions. Default setting for ack popup is false, can be changed by setting ack_timeout=true in frontend-config(alerta.conf).
+- remove unused statuses
+    - DSUPR
+    - OOSRV
+- change the check for OOSRV to shelved when checking which statuses to ignore in notification rules. This means that shelved alarms will always be ignored in notification rules.
+- make detail page simpler by hiding unnecessary information and restructure to show the most important information at the top
+- changen the clickable details to fill out the alert filter instead of creating a search
+- hide alert and history search by default. This is a user setting
+- make attributes sortable in the alert list/table
+- change confirm to custom popup/dialog
+- add a restriction for the height and width of the description/text field in the alerts table and the alert detail page
+- open URLs starting with http:// or https:// in a new tab rather than adding as a filter in the alert detail page
+
+### Fix
+- make edit-date(date-fields in dialogs) clearable
+
 ## v3.2.2
 ### Feat
 - add subpath/base url for frontend
