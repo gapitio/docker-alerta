@@ -10,3 +10,5 @@ contrib/kubernetes/helm/alerta/charts
 /.bundle/
 
 /venv/
+dist/
+frontend-dist/
