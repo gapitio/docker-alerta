@@ -62,5 +62,11 @@ http {
         location {{ env.FRONTEND_BASE_URL }} {
             try_files $uri $uri/ {{ env.FRONTEND_BASE_URL }}index.html;
         }
+        
+        {% if env.FRONTEND_BASE_URL != '/' -%}
+        location / {
+            return 301 {{ env.FRONTEND_BASE_URL }};
+        }
+        {%- endif %}
     }
 }
