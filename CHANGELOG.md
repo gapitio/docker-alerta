@@ -1,3 +1,9 @@
+## v4.0.1
+### Fix
+- fix refresh of pages with URL containing "/"
+- set current tab to user-defined when changing filter through the alert detail page
+- fix decoding of hash in the history page
+
 ## v4.0.0
 ### Feat
 - remove unused fields for alerts:
