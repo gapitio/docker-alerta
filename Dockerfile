@@ -19,15 +19,12 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
     build-essential \
-    curl \
     git \
     gnupg2 \
     libldap2-dev \
     libpq-dev \
     libsasl2-dev \
-    postgresql-client \
     python3-dev \
-    supervisor \
     libpcre2-dev \ 
     libpcre2-8-0 \
     ca-certificates \
@@ -60,7 +57,7 @@ RUN tar zxvf /tmp/backend/alerta.tar.gz -C /tmp/backend && \
     find /tmp/backend/dist -name "*-py2.py3-none-any.whl" -print0 | xargs -0 -I{} /venv/bin/pip install {}
 
 
-#download and install alerta server/backend
+#download alerta frontend
 ADD https://github.com/gapitio/alerta-webui/releases/download/${WEBUI_VERSION}/alerta-webui.tar.gz /tmp/webui.tar.gz
 RUN tar zxvf /tmp/webui.tar.gz -C /tmp && \
     mv /tmp/dist /web
