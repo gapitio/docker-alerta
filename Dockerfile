@@ -59,10 +59,6 @@ ADD https://github.com/gapitio/alerta/releases/download/${SERVER_VERSION}/alerta
 RUN tar zxvf /tmp/backend/alerta.tar.gz -C /tmp/backend && \
     find /tmp/backend/dist -name "*-py2.py3-none-any.whl" -print0 | xargs -0 -I{} /venv/bin/pip install {}
 
-#download and install alerta plugins
-COPY install-plugins.sh /app/install-plugins.sh
-COPY plugins.txt /app/plugins.txt
-RUN /app/install-plugins.sh
 
 #download and install alerta server/backend
 ADD https://github.com/gapitio/alerta-webui/releases/download/${WEBUI_VERSION}/alerta-webui.tar.gz /tmp/webui.tar.gz
