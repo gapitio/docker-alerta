@@ -21,7 +21,7 @@ MAXAGE=${ADMIN_KEY_MAXAGE:-315360000}  # default=10 years
 if [ ! -f "${ALERTA_SVR_CONF_FILE}" ]; then
   if [ $INIT_LOG = true ]; then echo "# Create server configuration file."; fi
   export SECRET_KEY=${SECRET_KEY:-$(< /dev/urandom tr -dc A-Za-z0-9_\!\@\#\$\%\^\&\*\(\)-+= | head -c 32)}
-  python3 -c "${JINJA2}" < ${ALERTA_SVR_CONF_FILE}.j2 >${ALERTA_SVR_CONF_FILE}
+  /venv/bin/python3 -c "${JINJA2}" < ${ALERTA_SVR_CONF_FILE}.j2 >${ALERTA_SVR_CONF_FILE}
 fi
 
 # Init admin users and API keys
@@ -54,26 +54,26 @@ if [ ! -f "${ALERTA_CONF_FILE}" ]; then
     --text "Housekeeping")
   fi
   if [ $INIT_LOG = true ]; then echo "# Create client configuration file."; fi
-  python3 -c "${JINJA2}" < ${ALERTA_CONF_FILE}.j2 >${ALERTA_CONF_FILE}
+  /venv/bin/python3 -c "${JINJA2}" < ${ALERTA_CONF_FILE}.j2 >${ALERTA_CONF_FILE}
 fi
 
 # Generate supervisord config, if not supplied
 if [ ! -f "${SUPERVISORD_CONF_FILE}" ]; then
   if [ $INIT_LOG = true ]; then echo "# Create supervisord configuration file."; fi
-  python3 -c "${JINJA2}" < ${SUPERVISORD_CONF_FILE}.j2 >${SUPERVISORD_CONF_FILE}
+  /venv/bin/python3 -c "${JINJA2}" < ${SUPERVISORD_CONF_FILE}.j2 >${SUPERVISORD_CONF_FILE}
 fi
 
 # Generate nginx config, if not supplied.
 if [ ! -f "${NGINX_CONF_FILE}" ]; then
   if [ $INIT_LOG = true ]; then echo "# Create nginx configuration file."; fi
-  python3 -c "${JINJA2}" < ${NGINX_CONF_FILE}.j2 >${NGINX_CONF_FILE}
+  /venv/bin/python3 -c "${JINJA2}" < ${NGINX_CONF_FILE}.j2 >${NGINX_CONF_FILE}
 fi
 nginx -t -c ${NGINX_CONF_FILE}
 
 # Generate uWSGI config, if not supplied.
 if [ ! -f "${UWSGI_CONF_FILE}" ]; then
   if [ $INIT_LOG = true ]; then echo "# Create uWSGI configuration file."; fi
-  python3 -c "${JINJA2}" < ${UWSGI_CONF_FILE}.j2 >${UWSGI_CONF_FILE}
+  /venv/bin/python3 -c "${JINJA2}" < ${UWSGI_CONF_FILE}.j2 >${UWSGI_CONF_FILE}
 fi
 
 if [ ! -d "/web${FRONTEND_BASE_URL}" ]; then
@@ -84,7 +84,7 @@ fi
 # Generate web config, if not supplied.
 if [ ! -f "${ALERTA_WEB_CONF_FILE}" ]; then
   if [ $INIT_LOG = true ]; then echo "# Create web configuration file."; fi
-  python3 -c "${JINJA2}" < ${ALERTA_WEB_CONF_FILE}.j2 >${ALERTA_WEB_CONF_FILE}
+  /venv/bin/python3 -c "${JINJA2}" < ${ALERTA_WEB_CONF_FILE}.j2 >${ALERTA_WEB_CONF_FILE}
 fi
 
 if [ $INIT_LOG = true ]; then 
@@ -97,7 +97,7 @@ if [ $INIT_LOG = true ]; then
   nginx -v
   echo uwsgi $(uwsgi --version)
   psql --version
-  python3 --version
+  /venv/bin/python3 --version
   /venv/bin/pip list
 
   echo
