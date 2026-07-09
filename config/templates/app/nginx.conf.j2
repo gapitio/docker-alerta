@@ -60,6 +60,7 @@ http {
         index index.html;
         
         location {{ env.FRONTEND_BASE_URL }} {
+            default_type text/html;
             try_files $uri $uri/ {{ env.FRONTEND_BASE_URL }}index.html;
         }
         
