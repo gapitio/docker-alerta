@@ -1,3 +1,30 @@
+## v4.1.0
+### Feat
+- add close action for alerta_isa_18_2 alarm model
+- add scopes for alert actions
+- add more sorting for notificatino rule table
+- add support for multiple values for attribute columns in alerts filter
+- add subject field for emails
+- add oidc ssl verify config
+- change browser "dialogs" to custom dialogs
+- add unit options when setting timeout for actions
+- remove actions from table when showing a lot of alerts
+- hide user-defined filter tab when filter is not user-defined
+- rename user-defined tab to User Filter
+
+### Fix
+- add correct count of filtertabs
+- do not allow negative timeout for alerts
+- return not found when looking for unknown notification rule history
+- lookup of users no longer throw error when the user email is None in notification rules/when sending notifications
+- change all "old" api-keys that uses the notification_ scopes to use notification. scopes
+- api-keys use login instead of email
+- hide chips that are "behind" notes in alert details
+- auto remove illegal sorting of tables
+- add empty redirect page for login popups instead of throwing error for not finding the backend
+- make toggles show fully in all pages
+- make notification history links work again
+
 ## v4.0.1
 ### Fix
 - fix refresh of pages with URL containing "/"
