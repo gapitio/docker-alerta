@@ -17,6 +17,12 @@ ADMIN_USER=${ADMIN_USERS%%,*}
 ADMIN_PASSWORD=${ADMIN_PASSWORD:-alerta}
 MAXAGE=${ADMIN_KEY_MAXAGE:-315360000}  # default=10 years
 
+# Make sure that FRONTEND_BASE_URL ends with a /
+if ["{$FRONTEND_BASE_URL: -1}" != "/"]; then
+  if [ $INIT_LOG = true ]; then echo "# Fixed FRONTEND_BASE_URL by adding a '/' at the end"; fi
+  export FRONTEND_BASE_URL=${FRONTEND_BASE_URL}/
+fi
+
 # Generate minimal server config, if not supplied
 if [ ! -f "${ALERTA_SVR_CONF_FILE}" ]; then
   if [ $INIT_LOG = true ]; then echo "# Create server configuration file."; fi
