@@ -1,3 +1,10 @@
+## V4.1.1
+### Feat
+- add support for using API-keys for twilio notification channels
+
+### Fix
+- fix redirects for nginx
+
 ## v4.1.0
 ### Feat
 - add close action for alerta_isa_18_2 alarm model
