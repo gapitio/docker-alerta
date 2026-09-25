@@ -46,7 +46,10 @@ http {
 
         access_log /dev/stdout main;
 
-        location {{ env.FRONTEND_BASE_URL }}api {
+        absolute_redirect off;
+
+
+        location {{ env.FRONTEND_BASE_URL }}api/ {
             include /etc/nginx/uwsgi_params;
             uwsgi_pass backend;
 
@@ -66,7 +69,7 @@ http {
         
         {% if env.FRONTEND_BASE_URL != '/' -%}
         location / {
-            return 301 {{ env.FRONTEND_BASE_URL }};
+            return 301 {{ env.FRONTEND_BASE_URL[:-1] }}$request_uri;
         }
         {%- endif %}
     }
