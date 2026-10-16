@@ -1,3 +1,7 @@
+## V4.1.2
+### Feat
+- add sort by id for alerts to prevent alerts from changing order when all sorting fields are the same
+
 ## V4.1.1
 ### Feat
 - add support for using API-keys for twilio notification channels
