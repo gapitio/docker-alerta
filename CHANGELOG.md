@@ -1,3 +1,7 @@
+## V4.1.3
+### Fix
+- keep note icon on same line as status chip in alert list
+
 ## V4.1.2
 ### Feat
 - add sort by id for alerts to prevent alerts from changing order when all sorting fields are the same
