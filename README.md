@@ -1,3 +1,127 @@
+About this fork
+===============
+
+This repository is a fork of [alerta/docker-alerta](https://github.com/alerta/docker-alerta),
+maintained by [Gapit](https://github.com/gapitio). The image is built from Gapit's
+forks of the Alerta components instead of the upstream packages:
+
+| Component | Fork | Upstream |
+|-----------|------|----------|
+| API server (backend) | [gapitio/alerta](https://github.com/gapitio/alerta) | [alerta/alerta](https://github.com/alerta/alerta) |
+| Web UI (frontend) | [gapitio/alerta-webui](https://github.com/gapitio/alerta-webui) | [alerta/alerta-webui](https://github.com/alerta/alerta-webui) |
+| CLI / Python SDK | [gapitio/python-alerta-client](https://github.com/gapitio/python-alerta-client) | [alerta/python-alerta-client](https://github.com/alerta/python-alerta-client) |
+| Docker image | [gapitio/docker-alerta](https://github.com/gapitio/docker-alerta) | [alerta/docker-alerta](https://github.com/alerta/docker-alerta) |
+
+The image is published as `ghcr.io/gapitio/docker-alerta`. See
+[CHANGELOG.md](CHANGELOG.md) for per-release changes.
+
+The fork is not API-compatible with upstream Alerta in every respect. Several
+alert fields (`type`, `group`, `repeat`, `trendIndication`) and event correlation
+have been removed, and some API routes and scopes have changed.
+
+Functionality added in gapitio/alerta (API server)
+--------------------------------------------------
+
+### Notifications
+
+- **Notification rules** – decide which alerts send a notification and who gets
+  it. When an incoming alert matches a rule, a notification (SMS, email or voice
+  call) is sent through the rule's notification channel to the rule's users,
+  notification groups and extra phone numbers or emails, and optionally to
+  whoever is on call. Rules match on environment, service, resource, event, tags
+  (all/any and excluded tags), severity/status triggers with custom message
+  texts, days and time windows, and can delay sending. Rules can be muted,
+  deactivated until a reactivation date, and previewed to see which alerts would
+  trigger them. Each rule keeps a history of who created, changed or deleted it.
+- **Notification channels** – SMS, email and voice through Twilio (credentials or
+  API keys), SendGrid, SMTP and Link Mobility / MyLink, with encrypted credentials
+  and a channel test endpoint.
+- **Notification groups** – named groups of users plus extra phone numbers and
+  emails, so a rule can notify a whole team without listing each person.
+- **On-call schedules** – define which users or notification groups are on call
+  in a date and time range, repeating on selected days, weeks or months, with a
+  time offset. Notification rules with on-call enabled notify whoever is on call
+  when the alert arrives.
+- **Notification history** – searchable log of every notification sent, with its
+  rule, alert, receivers and whether it was sent successfully.
+- **Manual sends** – send a custom SMS or email through a notification channel to
+  selected users and notification groups, outside of any rule.
+
+### Escalation
+
+- **Escalation rules** – raise the severity of alerts that stay open longer than a
+  set time, matched on environment, service, resource, event, tags (including
+  excluded tags) and severity/status triggers, limited to selected days and time
+  windows. Run periodically by the `alerta escalate` CLI command.
+
+### Alerts
+
+- **Alarm model** – `alerta_isa_18_2`, combining the Alerta and ISA 18.2 alarm models
+  (including open, unack and close actions), and restricting severities to the
+  alarm model.
+- **Alert fields** – `type`, `group`, `repeat` and `trendIndication` removed, event
+  correlation removed, duplicate alerts update all fields, and a new tagging
+  structure.
+- **Bulk operations** – bulk post, bulk actions and bulk delete of alerts.
+- **Search and filtering** – per-column filters with negation (`!`) and multiple
+  values, saved filter tabs for alert and history views, stable sorting on id,
+  `return-keys` to reduce response size, and page size "all".
+- **History** – alert history linked to its alert via `alert_id`, with filtering
+  on environment.
+- **Actions** – separate shelve/ack timeouts, scopes per alert action, and timeout
+  units for actions.
+- **Notes** – notes plugin that clears notes when an alert returns to normal.
+- **Heartbeats** – heartbeat alerts kept in a dedicated `Heartbeats` environment,
+  support for external heartbeats.
+
+### Other
+
+- **Authentication** – custom OIDC scopes, OIDC roles saved on users, OIDC SSL
+  verify option, LDAP email edit setting.
+- **Reports and exports** – CSV export of top offenders, flapping and standing
+  alerts, and export of the manual setup.
+- **Configuration** – hide pages in the navigation bar, frontend base URL, and the
+  Gapit version shown in the config view.
+
+Functionality added in gapitio/alerta-webui (Web UI)
+----------------------------------------------------
+
+- Upgraded to current Vue and Vuetify with Gapit styling, a collapsible
+  navigation bar and per-user preferences.
+- Pages for notification rules, channels, groups, on-call schedules, escalation
+  rules, notification history and manual notification sends.
+- Per-column filters and simple search for the alert and history tables,
+  editable filter tabs, filter and sort state kept in the URL hash, sortable
+  attribute columns, and a watch switch for the alert table.
+- Bulk notes, bulk actions and bulk delete of alerts; dialogs with timeouts for
+  ack and shelve; tooltips and custom confirmation dialogs.
+- Export of alerts, history, notification history and reports.
+- Support for serving the UI under a sub-path (base URL), custom OIDC scopes, a
+  setting for the maximum number of alerts shown with actions, and custom users
+  for API keys.
+
+Functionality added in gapitio/python-alerta-client (CLI)
+---------------------------------------------------------
+
+- `escalate` command for running escalation rules.
+- Commands for reactivating notification rules and firing delayed notification
+  rules.
+- Faster heartbeat handling: alerts are only sent on new events or status
+  changes, in bulk, with progress output, and in the `Heartbeats` environment.
+- Housekeeping updated for the fork (no correlation, no expired/info deletion).
+
+Functionality added in gapitio/docker-alerta (this image)
+---------------------------------------------------------
+
+- Multi-stage build that installs the backend, web UI and client from the gapitio
+  release artifacts, with the external plugins removed.
+- `FRONTEND_BASE_URL` to serve the web UI under a sub-path, with nginx redirects
+  that keep the base path.
+- Housekeeping jobs for automatic unshelve and unack, notification delays, and
+  the `HOUSEKEEPING` API key scopes needed by the heartbeat and notification
+  commands.
+- `GAPIT_VERSION` baked into the image and shown in the UI.
+
 What is Alerta?
 ===============
 
